@@ -1,27 +1,38 @@
 import { Component } from '@angular/core';
 import { Ticket, TicketService } from '../../services/tickets.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tickets',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './tickets.component.html',
-  styleUrl: './tickets.component.css',
+  styleUrls: ['./tickets.component.css'],
 })
 export class TicketComponent {
   tickets: Ticket[] = [];
   error: string = '';
+  isLoading: boolean = true;
+
   constructor(private ticketService: TicketService) {}
 
-  onSubmit() {
+  ngOnInit() {
+    this.loadTickets();
+  }
+
+  loadTickets() {
     this.ticketService.getTickets().subscribe({
       next: (response) => {
-        this.tickets = response;
-        console.log('Get successful:', response);
+        this.tickets = Array.isArray(response)
+          ? response
+          : Object.values(response);
+        this.isLoading = false;
       },
       error: (error) => {
-        console.error('Get failed:', error);
-        this.error = error.error.data.message || 'An error occurred';
+        console.error('Failed to load tickets:', error);
+        this.error = error.error.message || 'An error occurred';
+        this.tickets = [];
+        this.isLoading = false;
       },
     });
   }
