@@ -1,0 +1,11 @@
+<p>selected-tickets works!</p>
+<div *ngIf="ticket">
+  <h2>{{ ticket.title }}</h2>
+  <p>{{ ticket.description }}</p>
+  <p>Status: {{ ticket.status }}</p>
+  <!-- Add more ticket details as needed -->
+</div>
+
+<div *ngIf="!ticket">
+  <p>Loading ticket details...</p>
+</div>

@@ -37,6 +37,25 @@ export class TicketService {
         })
       );
   }
+
+  getTicketById(id: string): Observable<Ticket | null> {
+    const token = this.getToken();
+    if (!token) {
+      return of(null);
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.httpClient
+      .get<{ data: Ticket }>(`${this.apiUrl}/tickets/${id}`, { headers })
+      .pipe(
+        map((response) => response.data),
+        catchError((error) => {
+          console.error(`Failed to load ticket with ID ${id}:`, error);
+          return of(null);
+        })
+      );
+  }
 }
 
 export interface Ticket {
