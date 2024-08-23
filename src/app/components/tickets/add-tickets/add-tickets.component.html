@@ -1,0 +1,18 @@
+<div class="login-container">
+  <h2>Add ticket</h2>
+  <form (ngSubmit)="onSubmit()">
+    <label for="title">title</label>
+    <input id="title" type="text" [(ngModel)]="title" name="title" required />
+
+    <label for="description">description</label>
+    <input
+      id="description"
+      type="text"
+      [(ngModel)]="description"
+      name="description"
+      required
+    />
+
+    <button type="submit">Submit</button>
+  </form>
+</div>

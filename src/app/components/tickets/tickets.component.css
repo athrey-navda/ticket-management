@@ -1,0 +1,36 @@
+.ticketBlock {
+  padding: 1;
+  background-color: gainsboro;
+}
+.eachTicketView {
+  text-decoration: none;
+  color: black;
+}
+.ticketContainer {
+  margin-right: 1em;
+  padding-left: 1em;
+}
+
+.cta-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.padding-2 {
+  padding: 2em;
+}
+.margin-2 {
+  padding: 2em;
+}

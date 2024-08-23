@@ -3,15 +3,27 @@
 </div>
 
 <div *ngIf="!isLoading && tickets.length; else noTickets">
-  <ul>
-    <li *ngFor="let ticket of tickets">
-      <a [routerLink]="['/selected-ticket', ticket._id]">
-        <h3>{{ ticket.title }}</h3>
-        <p>{{ ticket.description }}</p>
-        <p>Status: {{ ticket.status }}</p>
-      </a>
-    </li>
-  </ul>
+  <div class="margin-2">
+    <div class="flex justify-end">
+      <button type="button" [routerLink]="'/add-ticket'" class="cta-button">
+        Add
+      </button>
+    </div>
+    <ul>
+      <li *ngFor="let ticket of tickets" class="ticketBlock">
+        <a
+          [routerLink]="['/selected-ticket', ticket._id]"
+          class="eachTicketView"
+        >
+          <div class="ticketContainer">
+            <h3>{{ ticket.title }}</h3>
+            <p>{{ ticket.description }}</p>
+            <p>Status: {{ ticket.status }}</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <ng-template #noTickets>
