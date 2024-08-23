@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 interface LoginResponse {
   response: string;
@@ -13,13 +14,27 @@ interface LoginResponse {
     token: string;
   };
 }
+
+interface UserDetailsResponse {
+  response: string;
+  status: number;
+  data: {
+    _id: string;
+    name: string;
+    email: string;
+    role: string;
+  };
+}
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private apiUrl = 'http://localhost:5000/api/users';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private cookieService: CookieService
+  ) {}
 
   login(email: string, password: string): Observable<LoginResponse> {
     return this.httpClient.post<LoginResponse>(`${this.apiUrl}/login`, {
@@ -40,5 +55,17 @@ export class ApiService {
       password,
       role,
     });
+  }
+
+  getUserDetails(): Observable<UserDetailsResponse> {
+    const token = this.cookieService.get('access_token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.httpClient.get<UserDetailsResponse>(
+      `${this.apiUrl}/user-details`,
+      { headers }
+    );
   }
 }

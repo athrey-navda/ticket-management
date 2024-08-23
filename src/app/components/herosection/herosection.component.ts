@@ -1,12 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../services/api.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-herosection',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './herosection.component.html',
-  styleUrl: './herosection.component.css'
+  styleUrls: ['./herosection.component.css'],
 })
-export class HerosectionComponent {
+export class HerosectionComponent implements OnInit {
+  isLoggedIn: boolean = false;
+  user: { name: string; email: string; role: string } | null = null;
 
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit(): void {
+    this.apiService.getUserDetails().subscribe(
+      (response) => {
+        this.isLoggedIn = true;
+        this.user = response.data;
+      },
+      (error) => {
+        this.isLoggedIn = false;
+        this.user = null;
+      }
+    );
+  }
 }

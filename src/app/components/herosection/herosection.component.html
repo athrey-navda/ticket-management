@@ -1,5 +1,13 @@
-<section class="hero">
-  <h1>Welcome to Our Application</h1>
-  <p>Ticket management.</p>
-  <a href="/tickets" class="cta-button">Get Started</a>
+<section class="hero" *ngIf="isLoggedIn; else loggedOutTemplate">
+  <h1>Welcome, {{ user?.name }}!</h1>
+  <p>Your role: {{ user?.role }}</p>
+  <a href="/tickets" class="cta-button">Manage Your Tickets</a>
 </section>
+
+<ng-template #loggedOutTemplate>
+  <section class="hero">
+    <h1>Welcome to Our Application</h1>
+    <p>Ticket management.</p>
+    <a href="/tickets" class="cta-button">Get Started</a>
+  </section>
+</ng-template>
