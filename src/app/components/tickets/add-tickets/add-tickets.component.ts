@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CookieService } from 'ngx-cookie-service';
 import { TicketService } from '../../../services/tickets.service';
 
 @Component({
@@ -16,11 +15,7 @@ export class AddTicketsComponent {
   title: string = '';
   description: string = '';
   error: string = '';
-  constructor(
-    private ticketService: TicketService,
-    private router: Router,
-    private cookieService: CookieService
-  ) {}
+  constructor(private ticketService: TicketService, private router: Router) {}
 
   onSubmit() {
     this.ticketService.createTicket(this.title, this.description).subscribe({

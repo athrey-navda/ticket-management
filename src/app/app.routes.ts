@@ -5,6 +5,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { TicketComponent } from './components/tickets/tickets.component';
 import { SelectedTicketsComponent } from './components/tickets/selected-tickets/selected-tickets.component';
 import { AddTicketsComponent } from './components/tickets/add-tickets/add-tickets.component';
+import { EditTicketsComponent } from './components/tickets/edit-tickets/edit-tickets.component';
 
 export const routes: Routes = [
   { path: '', component: HerosectionComponent },
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'tickets', component: TicketComponent },
   { path: 'selected-ticket/:id', component: SelectedTicketsComponent },
   { path: 'add-ticket', component: AddTicketsComponent },
+  { path: 'edit-ticket/:id', component: EditTicketsComponent },
 ];
 
 export class AppRoutingModule {}

@@ -25,6 +25,16 @@ interface UserDetailsResponse {
     role: string;
   };
 }
+
+interface SupportStaffDetails {
+  response: string;
+  status: number;
+  data: { [key: string]: User };
+}
+interface User {
+  _id: string;
+  name: string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -67,5 +77,16 @@ export class ApiService {
       `${this.apiUrl}/user-details`,
       { headers }
     );
+  }
+
+  getStaffDetails(): Observable<SupportStaffDetails> {
+    const token = this.cookieService.get('access_token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.httpClient.get<SupportStaffDetails>(`${this.apiUrl}/support`, {
+      headers,
+    });
   }
 }

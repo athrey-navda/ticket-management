@@ -1,0 +1,46 @@
+<div class="login-container">
+  <h2>Edit ticket</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" [(ngModel)]="title" name="title" required />
+    </div>
+
+    <div>
+      <label for="description">Description:</label>
+      <textarea
+        id="description"
+        [(ngModel)]="description"
+        name="description"
+        required
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="status">Status:</label>
+      <select id="status" [(ngModel)]="status" name="status" required>
+        <option value="open">Open</option>
+        <option value="in progress">In Progress</option>
+        <option value="closed">Closed</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="assignedTo">Assigned To:</label>
+      <select
+        id="assignedTo"
+        [(ngModel)]="assignedTo"
+        name="assignedTo"
+        required
+      >
+        <option *ngFor="let user of supportUsers" [value]="user._id">
+          {{ user.name }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <button type="submit">Save Changes</button>
+    </div>
+  </form>
+</div>

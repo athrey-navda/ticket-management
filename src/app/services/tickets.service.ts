@@ -71,6 +71,30 @@ export class TicketService {
       { headers }
     );
   }
+
+  editTicket(
+    _id: string,
+    title: string,
+    description: string,
+    status: string,
+    assignedTo: string
+  ): Observable<Ticket> {
+    const token = this.cookieService.get('access_token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.httpClient.put<Ticket>(
+      `${this.apiUrl}/tickets/${_id}`,
+      {
+        title,
+        description,
+        status,
+        assignedTo,
+      },
+      { headers }
+    );
+  }
 }
 
 export interface Ticket {
@@ -78,4 +102,5 @@ export interface Ticket {
   title: string;
   description: string;
   status: string;
+  assignedTo: string;
 }
