@@ -11,16 +11,30 @@
     </div>
     <ul>
       <li *ngFor="let ticket of tickets" class="ticketBlock">
-        <a
-          [routerLink]="['/selected-ticket', ticket._id]"
-          class="eachTicketView"
-        >
+        <div class="eachTicketView">
           <div class="ticketContainer">
             <h3>{{ ticket.title }}</h3>
             <p>{{ ticket.description }}</p>
             <p>Status: {{ ticket.status }}</p>
           </div>
-        </a>
+          <div class="flex justify-end">
+            <button
+              type="button"
+              [routerLink]="'/edit-ticket'"
+              class="cta-button"
+            >
+              Edit
+            </button>
+
+            <button
+              type="button"
+              [routerLink]="['/selected-ticket', ticket._id]"
+              class="cta-button"
+            >
+              More
+            </button>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
