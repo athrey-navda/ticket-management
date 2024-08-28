@@ -16,15 +16,15 @@ export class HerosectionComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.apiService.getUserDetails().subscribe(
-      (response) => {
+    this.apiService.getUserDetails().subscribe({
+      next: (response) => {
         this.isLoggedIn = true;
         this.user = response.data;
       },
-      (error) => {
+      error: (error) => {
         this.isLoggedIn = false;
         this.user = null;
-      }
-    );
+      },
+    });
   }
 }
