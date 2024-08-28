@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,17 +17,19 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   error: string = '';
+
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private authService: AuthService
   ) {}
 
   onSubmit() {
     this.apiService.login(this.email, this.password).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
-        this.cookieService.set('access_token', response.data.token, 1, '/');
+        this.authService.login(response.data.token);
         this.router.navigate(['/']);
       },
       error: (error) => {
