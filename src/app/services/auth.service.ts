@@ -16,16 +16,16 @@ export class AuthService {
   }
 
   private updateAuthStatus() {
-    this.loggedIn.next(this.cookieService.check('auth_token'));
+    this.loggedIn.next(this.cookieService.check('access_token'));
   }
 
   login(token: string) {
-    this.cookieService.set('auth_token', token);
+    this.cookieService.set('access_token', token);
     this.updateAuthStatus();
   }
 
   logout() {
-    this.cookieService.delete('auth_token');
+    this.cookieService.delete('access_token');
     this.updateAuthStatus();
     this.router.navigate([`/login`]);
   }
