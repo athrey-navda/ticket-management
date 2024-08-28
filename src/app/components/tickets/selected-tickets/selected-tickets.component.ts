@@ -13,6 +13,8 @@ import { TicketService } from '../../../services/tickets.service';
 export class SelectedTicketsComponent {
   ticketId: string | null = null;
   ticket: any = null;
+  isSuccess: string | null = null;
+  successMessage: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,19 +23,28 @@ export class SelectedTicketsComponent {
 
   ngOnInit(): void {
     this.ticketId = this.route.snapshot.paramMap.get('id');
+    this.isSuccess = this.route.snapshot.queryParamMap.get('message');
+    this.successMessage =
+      this.isSuccess === 'true' ? 'Ticket edited successfully' : '';
+    if (this.successMessage) {
+      setTimeout(() => {
+        this.successMessage = null;
+      }, 5000);
+    }
+
     if (this.ticketId) {
       this.fetchTicketDetails(this.ticketId);
     }
   }
 
   fetchTicketDetails(id: string): void {
-    this.ticketService.getTicketById(id).subscribe(
-      (data) => {
+    this.ticketService.getTicketById(id).subscribe({
+      next: (data) => {
         this.ticket = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching ticket details:', error);
-      }
-    );
+      },
+    });
   }
 }

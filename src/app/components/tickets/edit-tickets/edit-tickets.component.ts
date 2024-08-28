@@ -81,6 +81,7 @@ export class EditTicketsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching support users:', error);
+        this.error = error.error.data.message || 'An error occurred';
       },
     });
   }
@@ -97,7 +98,9 @@ export class EditTicketsComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('Edited ticket successfully:', response);
-          this.router.navigate(['/tickets']);
+          this.router.navigate([`/selected-ticket/${this._id}`], {
+            queryParams: { message: 'true' },
+          });
         },
         error: (error) => {
           console.error('Edit ticket failed:', error);
